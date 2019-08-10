@@ -238,8 +238,6 @@ function openFile(event) {
     id = Object.keys(canvas)[0];
     renderCanvas();
     renderABS();
-    renderGS();
-    renderActions();
   };
   reader.readAsText(input.files[0]);
 };
