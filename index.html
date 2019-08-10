@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>CSS Shop/Stage</title>
+    <link rel="stylesheet" href="./css/master.css">
+    <link href="https://fonts.googleapis.com/css?family=Mukta" rel="stylesheet">
+    <link href='https://unpkg.com/boxicons@2.0.0/css/boxicons.min.css' rel='stylesheet'>
+    <link rel="icon" type="image/png" sizes="32x32" href="https://lakefox.net/assets/logo.png">
+  </head>
+  <body>
+    <div class="artboards">
+      <select id="artboard_select" onchange="changeArtBoard(this)">
+      </select>
+      &nbsp;
+      <input type='file' onchange='openFile(event)'>
+    </div>
+    <div class="zoom">
+      <i class='bx bx-zoom-out' onclick="zoomOut()"></i>
+      <i class='bx bx-zoom-in' onclick="zoomIn()"></i>
+      <div id="amount">
+        1
+      </div>
+    </div>
+
+    <i id="open" class='bx bxs-plus-square' ></i>
+    <div id="menu">
+      <i id="close" class='bx bxs-x-square'></i>
+      <div id="head">
+        CSS Shop/Stage
+      </div>
+      <div id="options">
+        <div class="option_head">
+          Create New Group
+        </div>
+
+        <div class="option">
+          <i class='bx bxs-plus-square icon_img'></i>
+          <div class="inputs">
+            <div class="input">
+              <div class="input_label">
+                Name
+              </div>
+              <input type="text" placeholder="Id" id="group_id">
+            </div>
+          </div>
+        </div>
+
+        <div class="option">
+          <i class='bx bxs-plus-square icon_img' style="color: #18191b;"></i>
+          <div class="inputs">
+            <div class="input">
+              <input type="button" value="Create" onclick="createGroup()">
+            </div>
+          </div>
+        </div>
+
+        <div class="option_head">
+          Group
+        </div>
+
+        <div class="option">
+          <i class='bx bx-id-card icon_img'></i>
+          <div class="inputs">
+            <div class="input">
+              <div class="input_label">
+                Selected Group
+              </div>
+              <select id="group_selector" onchange="renderElements()"></select>
+            </div>
+          </div>
+        </div>
+
+        <div class="option">
+          <i class='bx bx-id-card icon_img' style="color: #18191b;"></i>
+          <div class="inputs">
+            <div class="input">
+              <div class="input_label">
+                Rename
+              </div>
+              <input type="text" placeholder="Id" id="rename_group" onchange="renameGroup()">
+            </div>
+          </div>
+        </div>
+
+        <div class="option">
+          <i class='bx bxs-trash icon_img'></i>
+          <div class="inputs">
+            <div class="input">
+              <input type="button" value="Delete" onclick="deleteGroup()">
+            </div>
+          </div>
+        </div>
+
+        <div class="option_head">
+          Elements in Group <i class='bx bx-info-circle' style="float: right; margin-right: 20px;" title="Hold SHIFT and Left Click to Select"></i>
+        </div>
+
+        <div class="option">
+          <i class='bx bx-navigation icon_img'></i>
+          <div class="inputs">
+            <div class="input">
+              <select id="element_selector"></select>
+            </div>
+          </div>
+        </div>
+
+        <div class="option">
+          <i class='bx bxs-plus-square icon_img' style="color: #18191b;"></i>
+          <div class="inputs">
+            <div class="input">
+              <input type="button" value="Remove" onclick="removeElement()">
+            </div>
+          </div>
+        </div>
+
+        <div class="option_head">
+          Actions
+        </div>
+
+        <div class="option">
+          <i class='bx bx-reset bx-flip-horizontal icon_img'></i>
+          <div class="inputs">
+            <div class="input">
+              <div class="input_label">
+                Rotate
+              </div>
+              <input type="number" value="0" step="1" min="-180" max="180" id="group_rotate" onchange="rotate(this)">
+            </div>
+          </div>
+        </div>
+
+        <div class="option">
+          <i class='bx bx-expand icon_img'></i>
+          <div class="inputs">
+            <div class="input">
+              <div class="input_label">
+                X
+              </div>
+              <input type="number" value="0" id="left" onchange="translateGroup()">
+            </div>
+            <div class="input">
+              <div class="input_label">
+                Y
+              </div>
+              <input type="number" value="0" id="top" onchange="translateGroup()">
+            </div>
+          </div>
+        </div>
+
+        <div class="option">
+          <i class='bx bx-move-vertical icon_img'></i>
+          <div class="inputs">
+            <div class="input">
+              <div class="input_label">
+                Z
+              </div>
+              <input type="number" value="0" id="group_zindex" onchange="zindex(this)">
+            </div>
+          </div>
+        </div>
+
+        <div class="option_head">
+          Hide Group
+        </div>
+
+        <div class="option">
+          <i class='bx bxs-x-square icon_img txt_effects' onclick="hide(this)" title="Hide"></i>
+        </div>
+
+        <div class="option_head">
+          Merge Artboards
+        </div>
+
+        <div class="option">
+          <i class='bx bx-collapse icon_img'></i>
+          <div class="inputs">
+            <div class="input">
+              <select id="merge_artboards" multiple></select>
+            </div>
+          </div>
+        </div>
+
+        <div class="option">
+          <i class='bx bxs-plus-square icon_img' style="color: #18191b;"></i>
+          <div class="inputs">
+            <div class="input">
+              <input type="button" value="Merge" onclick="mergeArtboards()">
+            </div>
+          </div>
+        </div>
+
+        <div class="option_head">
+          Create Position
+        </div>
+
+        <div class="option">
+          <i class='bx bxs-save icon_img'></i>
+          <div class="inputs">
+            <div class="input">
+              <div class="input_label">
+                Name
+              </div>
+              <input type="text" placeholder="Id" id="position_id">
+            </div>
+          </div>
+        </div>
+
+        <div class="option">
+          <i class='bx bxs-plus-square icon_img' style="color: #18191b;"></i>
+          <div class="inputs">
+            <div class="input">
+              <input type="button" value="Create" onclick="createPosition()">
+            </div>
+          </div>
+        </div>
+
+        <div class="option_head">
+          Load Position
+        </div>
+
+        <div class="option">
+          <i class='bx bx-cloud-download icon_img'></i>
+          <div class="inputs">
+            <div class="input">
+              <select id="position_selector">
+                <option value="None">None</option>
+              </select>
+            </div>
+          </div>
+        </div>
+
+        <div class="option">
+          <i class='bx bxs-plus-square icon_img' style="color: #18191b;"></i>
+          <div class="inputs">
+            <div class="input">
+              <input type="button" value="Load" onclick="loadPosition()">
+            </div>
+          </div>
+        </div>
+
+        <div class="option_head">
+          Save/Delete Position
+        </div>
+
+        <div class="option">
+          <i class='bx bxs-plus-square icon_img' style="color: #18191b;"></i>
+          <div class="inputs">
+            <div class="input">
+              <input type="button" value="Save" onclick="savePosition()">
+            </div>
+          </div>
+        </div>
+
+        <div class="option">
+          <i class='bx bxs-plus-square icon_img' style="color: #18191b;"></i>
+          <div class="inputs">
+            <div class="input">
+              <input type="button" value="Delete" onclick="deletePosition()">
+            </div>
+          </div>
+        </div>
+
+        <div class="option_head">
+          Download
+        </div>
+
+        <div class="option">
+          <i class='bx bx-download icon_img txt_effects' id="download_file" title="Download .pos.csp File" onclick="download_file()"></i>
+        </div>
+
+      </div>
+    </div>
+    <div id="canvas" oncontextmenu="return false;">
+
+    </div>
+    <script src="./js/index.js" charset="utf-8"></script>
+  </body>
+</html>
