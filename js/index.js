@@ -89,6 +89,7 @@ window.onload = () => {
     id = Object.keys(canvas)[0];
     renderCanvas();
     renderABS();
+    renderPL();
   }
 }
 
@@ -244,6 +245,7 @@ function openFile(event) {
     id = Object.keys(canvas)[0];
     renderCanvas();
     renderABS();
+    renderPL();
   };
   reader.readAsText(input.files[0]);
 };
