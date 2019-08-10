@@ -228,7 +228,7 @@ function openFile(event) {
     let name = document.querySelector("input[type=file]").value;
     if (name.indexOf(".pos.csp") > -1) {
       storage = JSON.parse(text);
-      storage = storage.None;
+      artboards = storage.None;
       renderPL();
     } else {
       artboards = JSON.parse(text);
