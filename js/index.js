@@ -84,10 +84,12 @@ if (artboards.length == 0) {
 
 var canvas = artboards[0];
 
-if (JSON.stringify(storage) != "{}") {
-  id = Object.keys(canvas)[0];
-  renderCanvas();
-  renderABS();
+window.onload = () => {
+  if (JSON.stringify(storage) != "{}") {
+    id = Object.keys(canvas)[0];
+    renderCanvas();
+    renderABS();
+  }
 }
 
 function renderABS() {
