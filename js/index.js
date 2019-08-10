@@ -76,7 +76,7 @@ let shiftKey = false;
 
 var storage = JSON.parse(localStorage.storage || "{}");
 
-var artboards = [];
+var artboards = storage.None || [];
 
 if (artboards.length == 0) {
   artboards.push({});
