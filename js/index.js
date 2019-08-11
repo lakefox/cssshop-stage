@@ -439,6 +439,11 @@ function renderActions() {
   document.querySelector("#group_zindex").value = parseInt(group.zindex) || 0;
   document.querySelector("#top").value = group.y || 0;
   document.querySelector("#left").value = group.x || 0;
+  if (group.display == "none") {
+    document.querySelector("#hide_btn").classList.add("active");
+  } else {
+    document.querySelector("#hide_btn").classList.remove("active");
+  }
 }
 
 function rotate(e) {

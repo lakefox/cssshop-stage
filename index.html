@@ -165,7 +165,7 @@
         </div>
 
         <div class="option">
-          <i class='bx bxs-x-square icon_img txt_effects' onclick="hide(this)" title="Hide"></i>
+          <i class='bx bxs-x-square icon_img txt_effects' id="hide_btn" onclick="hide(this)" title="Hide"></i>
         </div>
 
         <div class="option_head">
@@ -223,18 +223,9 @@
           <i class='bx bx-cloud-download icon_img'></i>
           <div class="inputs">
             <div class="input">
-              <select id="position_selector">
+              <select id="position_selector" onchange="loadPosition()">
                 <option value="None">None</option>
               </select>
-            </div>
-          </div>
-        </div>
-
-        <div class="option">
-          <i class='bx bxs-plus-square icon_img' style="color: #18191b;"></i>
-          <div class="inputs">
-            <div class="input">
-              <input type="button" value="Load" onclick="loadPosition()">
             </div>
           </div>
         </div>
