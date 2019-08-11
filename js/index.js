@@ -366,9 +366,11 @@ function renderGroups() {
         for (var b = 0; b < group.elements.length; b++) {
           let element = group.elements[b];
           let child = document.querySelector(`div[data-name="${element}"]`);
-          child.style.top = (parseInt(canvas[element].top || el_default.top)-box.y)+"px";
-          child.style.left = (parseInt(canvas[element].left || el_default.left)-box.x)+"px";
-          div.append(child);
+          if (child != null) {
+            child.style.top = (parseInt(canvas[element].top || el_default.top)-box.y)+"px";
+            child.style.left = (parseInt(canvas[element].left || el_default.left)-box.x)+"px";
+            div.append(child);
+          }
         }
         div.dataset.group = Object.keys(groups)[a];
         document.querySelector("#canvas").append(div);
