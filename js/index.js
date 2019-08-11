@@ -174,6 +174,9 @@ function renderCanvas() {
       can.appendChild(div);
     }
   }
+  for (var i = 0; i < storage.None.length; i++) {
+    delete storage.None[i].groups;
+  }
   localStorage.storage = JSON.stringify(storage);
   if (!shiftKey) {
     renderGroups();
