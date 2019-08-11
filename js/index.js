@@ -361,16 +361,18 @@ function renderGroups() {
     if (group.elements.length > 0) {
       let div = document.createElement("div");
       let box = getBoundingBox(group.elements);
-      div.style = `position: absolute; top: ${box.y+(parseInt(group.y) || 0)}px; left: ${box.x+(parseInt(group.x) || 0)}px; width: ${box.width}px; height: ${box.height}px; transform: ${Object.values(group.styles || {}).join(" ")}; z-index: ${group.zindex}; display: ${group.display};`;
-      for (var b = 0; b < group.elements.length; b++) {
-        let element = group.elements[b];
-        let child = document.querySelector(`div[data-name="${element}"]`);
-        child.style.top = (parseInt(canvas[element].top || el_default.top)-box.y)+"px";
-        child.style.left = (parseInt(canvas[element].left || el_default.left)-box.x)+"px";
-        div.append(child);
+      if (box = false) {
+        div.style = `position: absolute; top: ${box.y+(parseInt(group.y) || 0)}px; left: ${box.x+(parseInt(group.x) || 0)}px; width: ${box.width}px; height: ${box.height}px; transform: ${Object.values(group.styles || {}).join(" ")}; z-index: ${group.zindex}; display: ${group.display};`;
+        for (var b = 0; b < group.elements.length; b++) {
+          let element = group.elements[b];
+          let child = document.querySelector(`div[data-name="${element}"]`);
+          child.style.top = (parseInt(canvas[element].top || el_default.top)-box.y)+"px";
+          child.style.left = (parseInt(canvas[element].left || el_default.left)-box.x)+"px";
+          div.append(child);
+        }
+        div.dataset.group = Object.keys(groups)[a];
+        document.querySelector("#canvas").append(div);
       }
-      div.dataset.group = Object.keys(groups)[a];
-      document.querySelector("#canvas").append(div);
     }
   }
   document.querySelector("#canvas").style.transform = `scale(${zoom})`;
@@ -380,28 +382,33 @@ function getBoundingBox(names) {
   let ogX = window.scrollX;
   let ogY = window.scrollY;
   window.scrollTo(0,0);
-  let box = document.querySelector(`div[data-name="${names[0]}"]`).getBoundingClientRect();
-  box = JSON.parse(JSON.stringify(box));
-  box.width = box.x + box.width;
-  box.height = box.y + box.height;
-  for (var i = 1; i < names.length; i++) {
-    let el = document.querySelector(`div[data-name="${names[i]}"]`).getBoundingClientRect();
-    box.x = Math.min(box.x, el.x);
-    box.y = Math.min(box.y, el.y);
-    box.width = Math.max(box.width, el.x + el.width);
-    box.height = Math.max(box.height, el.y + el.height);
+  let el = document.querySelector(`div[data-name="${names[0]}"]`);
+  if (el != null) {
+    let box = el.getBoundingClientRect();
+    box = JSON.parse(JSON.stringify(box));
+    box.width = box.x + box.width;
+    box.height = box.y + box.height;
+    for (var i = 1; i < names.length; i++) {
+      let el = document.querySelector(`div[data-name="${names[i]}"]`).getBoundingClientRect();
+      box.x = Math.min(box.x, el.x);
+      box.y = Math.min(box.y, el.y);
+      box.width = Math.max(box.width, el.x + el.width);
+      box.height = Math.max(box.height, el.y + el.height);
+    }
+    delete box.top;
+    delete box.bottom;
+    delete box.left;
+    delete box.right;
+
+    window.scrollTo(ogX, ogY);
+
+    box.width = box.width-box.x;
+    box.height = box.height-box.y;
+
+    return box;
+  } else {
+    return false;
   }
-  delete box.top;
-  delete box.bottom;
-  delete box.left;
-  delete box.right;
-
-  window.scrollTo(ogX, ogY);
-
-  box.width = box.width-box.x;
-  box.height = box.height-box.y;
-
-  return box;
 }
 
 function renameGroup() {
