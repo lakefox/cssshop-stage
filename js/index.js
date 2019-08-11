@@ -476,7 +476,7 @@ function translateGroup() {
   renderCanvas();
 }
 
-// TODO: 
+// TODO:
 function mergeArtboards() {
   let ab = document.querySelector("#merge_artboards").selectedOptions;
   let groups = {...artboards[parseInt(ab[0].value)].groups, ...artboards[parseInt(ab[1].value)].groups};
@@ -500,7 +500,7 @@ function createPosition() {
 function savePosition() {
   let name = document.querySelector("#position_selector").value;
   if (name != "" && name != "None") {
-    storage[name] = JSON.parse(JSON.stringify(artboards.groups));
+    storage[name] = JSON.parse(JSON.stringify(artboards[0].groups));
   }
 }
 
@@ -516,7 +516,7 @@ function loadPosition() {
   let name = document.querySelector("#position_selector").value;
   if (name != "") {
     artboards = storage.None;
-    artboards.groups = storage[name];
+    artboards[0].groups = storage[name];
     canvas = artboards[0];
     id = Object.keys(canvas)[0];
     renderCanvas();
