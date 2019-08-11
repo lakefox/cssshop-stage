@@ -361,7 +361,7 @@ function renderGroups() {
     if (group.elements.length > 0) {
       let div = document.createElement("div");
       let box = getBoundingBox(group.elements);
-      if (box == false) {
+      if (box != false) {
         div.style = `position: absolute; top: ${box.y+(parseInt(group.y) || 0)}px; left: ${box.x+(parseInt(group.x) || 0)}px; width: ${box.width}px; height: ${box.height}px; transform: ${Object.values(group.styles || {}).join(" ")}; z-index: ${group.zindex}; display: ${group.display};`;
         for (var b = 0; b < group.elements.length; b++) {
           let element = group.elements[b];
