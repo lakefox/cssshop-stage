@@ -476,6 +476,7 @@ function translateGroup() {
   renderCanvas();
 }
 
+// TODO: 
 function mergeArtboards() {
   let ab = document.querySelector("#merge_artboards").selectedOptions;
   let groups = {...artboards[parseInt(ab[0].value)].groups, ...artboards[parseInt(ab[1].value)].groups};
@@ -490,7 +491,7 @@ function mergeArtboards() {
 function createPosition() {
   let name = document.querySelector("#position_id").value;
   if (name != "") {
-    storage[name] = artboards;
+    storage[name] = {};
     document.querySelector("#position_id").value = "";
     renderPL();
   }
@@ -499,7 +500,7 @@ function createPosition() {
 function savePosition() {
   let name = document.querySelector("#position_selector").value;
   if (name != "" && name != "None") {
-    storage[name] = JSON.parse(JSON.stringify(artboards));
+    storage[name] = JSON.parse(JSON.stringify(artboards.groups));
   }
 }
 
@@ -514,7 +515,8 @@ function deletePosition() {
 function loadPosition() {
   let name = document.querySelector("#position_selector").value;
   if (name != "") {
-    artboards = storage[name];
+    artboards = storage.None;
+    artboards.groups = storage[name];
     canvas = artboards[0];
     id = Object.keys(canvas)[0];
     renderCanvas();
