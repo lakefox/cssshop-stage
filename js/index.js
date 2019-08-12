@@ -84,6 +84,8 @@ if (artboards.length == 0) {
 
 var canvas = artboards[0];
 
+canvas.groups = {};
+
 window.onload = () => {
   if (JSON.stringify(storage) != "{}") {
     id = Object.keys(canvas)[0];
@@ -173,9 +175,6 @@ function renderCanvas() {
 
       can.appendChild(div);
     }
-  }
-  for (var i = 0; i < storage.None.length; i++) {
-    delete storage.None[i].groups;
   }
   localStorage.storage = JSON.stringify(storage);
   if (!shiftKey) {
@@ -332,7 +331,6 @@ function renderElements() {
 
 function renderGS() {
   document.querySelector("#group_selector").innerHTML = "";
-  canvas.groups = canvas.groups || {};
   for (var i = 0; i < Object.keys(canvas.groups).length; i++) {
     let op = document.createElement("option");
     op.value = Object.keys(canvas.groups)[i];
@@ -412,6 +410,7 @@ function getBoundingBox(names) {
 
     return box;
   } else {
+    window.scrollTo(ogX, ogY);
     return false;
   }
 }
@@ -529,7 +528,7 @@ function loadPosition() {
   let name = document.querySelector("#position_selector").value;
   if (name != "") {
     artboards = storage.None;
-    artboards[0].groups = storage[name];
+    artboards[0].groups = storage[name] || {};
     canvas = artboards[0];
     id = Object.keys(canvas)[0];
     renderCanvas();
