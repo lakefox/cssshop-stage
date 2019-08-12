@@ -446,15 +446,16 @@ function deleteGroup() {
 
 function renderActions() {
   let group = canvas.groups[document.querySelector("#group_selector").value];
-
-  document.querySelector("#group_rotate").value = (group.styles.rotate || "rotate(0deg)").slice(7,-4);
-  document.querySelector("#group_zindex").value = parseInt(group.zindex) || 0;
-  document.querySelector("#top").value = group.y || 0;
-  document.querySelector("#left").value = group.x || 0;
-  if (group.display == "none") {
-    document.querySelector("#hide_btn").classList.add("active");
-  } else {
-    document.querySelector("#hide_btn").classList.remove("active");
+  if (group) {
+    document.querySelector("#group_rotate").value = (group.styles.rotate || "rotate(0deg)").slice(7,-4);
+    document.querySelector("#group_zindex").value = parseInt(group.zindex) || 0;
+    document.querySelector("#top").value = group.y || 0;
+    document.querySelector("#left").value = group.x || 0;
+    if (group.display == "none") {
+      document.querySelector("#hide_btn").classList.add("active");
+    } else {
+      document.querySelector("#hide_btn").classList.remove("active");
+    }
   }
 }
 
