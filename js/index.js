@@ -84,7 +84,7 @@ if (artboards.length == 0) {
 
 var canvas = artboards[0];
 
-canvas.groups = storage;
+canvas.groups = {};
 
 window.onload = () => {
   if (JSON.stringify(storage) != "{}") {
