@@ -551,3 +551,8 @@ function renderPL() {
     document.querySelector("#position_selector").appendChild(op);
   }
 }
+
+function deleteET() {
+  localStorage.storage = "{}";
+  window.location.reload();
+}
