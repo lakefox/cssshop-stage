@@ -198,9 +198,6 @@ function zoomOut() {
 
 function download_file() {
   let filename = Math.floor(Math.random()*1000000);
-  for (var i = 0; i < storage.None.length; i++) {
-    delete storage.None[i].groups;
-  }
   let text = JSON.stringify(storage);
   var element = document.createElement('a');
   element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(text));
